@@ -40,7 +40,18 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: process.env.CLIENT_URL || 'http://localhost:5173',
+        origin: (origin, callback) => {
+            const allowedOrigins = [
+                process.env.CLIENT_URL,
+                'http://localhost:5173',
+                'https://luxe-estate-real-estate-website-fro.vercel.app'
+            ];
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true
     }
