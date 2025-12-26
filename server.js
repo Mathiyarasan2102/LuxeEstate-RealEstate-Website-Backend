@@ -42,9 +42,7 @@ const io = new Server(server, {
     cors: {
         origin: (origin, callback) => {
             const allowedOrigins = [
-                process.env.CLIENT_URL,
-                'http://localhost:5173',
-                'https://luxe-estate-real-estate-website-fro.vercel.app'
+                process.env.CLIENT_URL
             ];
             if (!origin || allowedOrigins.includes(origin)) {
                 callback(null, true);
@@ -122,7 +120,7 @@ app.use(morgan('dev', {
     }
 }));
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: process.env.CLIENT_URL,
     credentials: true
 }));
 
